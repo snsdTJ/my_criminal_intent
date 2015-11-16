@@ -7,6 +7,7 @@
  ************************************************************/
 package com.littlefoolish.mycriminalintent;
 
+import java.util.Date;
 import java.util.UUID;
 
 /************************************************************
@@ -19,6 +20,10 @@ public class Crime {
 	
 	private String mTitle;
 	
+	private Date  mDate;
+	
+	private boolean mSolved;
+	
 	
 	/**
 	 * 构造函数：Crime
@@ -28,6 +33,28 @@ public class Crime {
 	public Crime() {
 		//生成唯一标识符
 		mId = UUID.randomUUID();
+		//生成发生的时间
+		mDate = new Date();
+	}
+
+
+	public Date getDate() {
+		return mDate;
+	}
+
+
+	public void setDate(Date date) {
+		mDate = date;
+	}
+
+
+	public boolean isSolved() {
+		return mSolved;
+	}
+
+
+	public void setSolved(boolean solved) {
+		mSolved = solved;
 	}
 
 

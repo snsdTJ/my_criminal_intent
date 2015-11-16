@@ -7,6 +7,9 @@
  ************************************************************/
 package com.littlefoolish.mycriminalintent;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.app.Fragment;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,6 +17,10 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 
 
@@ -22,6 +29,10 @@ public class CrimeFragment extends Fragment {
 	private Crime mCrime;
 	
 	private EditText mTitleField;
+	
+	private Button mDateButton;
+	
+	private CheckBox mSolvedCheckBox;
 	
 	/*
 	 * 在fragment中，fragment生命周期方法onCreate(Bundle savedInstanceState)方法一般用来初始化数据
@@ -45,7 +56,6 @@ public class CrimeFragment extends Fragment {
 		//初始化控件
 		mTitleField = (EditText) view.findViewById(R.id.crime_title);
 		mTitleField.addTextChangedListener(new TextWatcher() {
-			
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				
@@ -56,12 +66,26 @@ public class CrimeFragment extends Fragment {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 				// TODO Auto-generated method stub
-				
 			}
 			
 			@Override
 			public void afterTextChanged(Editable s) {
 				// TODO Auto-generated method stub
+			}
+		});
+		
+		mDateButton = (Button) view.findViewById(R.id.crime_date);
+		SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMM d,yyyy");
+		String strDate = sdf.format(mCrime.getDate());
+		mDateButton.setText(strDate);
+		mDateButton.setEnabled(false);//禁止按钮可以保证它不响应用语的点击事件
+		
+		mSolvedCheckBox = (CheckBox) view.findViewById(R.id.crime_solved);
+		mSolvedCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {			
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				
+				mCrime.setSolved(isChecked);
 				
 			}
 		});
